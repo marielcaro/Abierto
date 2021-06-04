@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>HTMLPDFer Demos</h2>
+<ul>
+  <li><a href="HTMLPDFer-HTMLHeaderAndFooterWithBase64HeaderImage.htm">Header and Footer with Base64 Header Image</a></li>
+  <li><a href="HTMLPDFer-TextHeaderAndFooter.htm">Text Header and Footer</a></li>
+  <li><a href="HTMLPDFer-NoHeader.htm">No Header</a></li>
+</ul>  
+
+<h2>Header and Footer with Base64 Header Image</h2>
+
+<form action="/convert" method="post">
+
+<input type="submit" value="Convert HTML to PDF"><br><br>
+
+Email:<br><textarea name="email" rows="1" cols="80">hal@campsoftware.com</textarea><br><br>
+Key:<br><textarea name="key"rows="1" cols="80">htmlpdfer</textarea><br><br>
+PDF File Name:<br><textarea name="pdfFileName" rows="1" cols="80">html.pdf</textarea><br><br>
+Params:<br><textarea name="params" rows="4" cols="80">--page-size Letter --dpi 300 --header-line --footer-line --margin-top 30 --header-spacing 5 --footer-spacing 5</textarea><br><br>
+HTML Header:<br><textarea name="htmlheader" rows="10" cols="80"><!DOCTYPE html><html>
+<head>
+<style>
+body {
+	font-family: Helvetica;
+	font-size: 14px;
+}
+</style>
+<script>
+  function subst() {
+      var vars = {};
+      var query_strings_from_url = document.location.search.substring(1).split('&');
+      for (var query_string in query_strings_from_url) {
+          if (query_strings_from_url.hasOwnProperty(query_string)) {
+              var temp_var = query_strings_from_url[query_string].split('=', 2);
+              vars[temp_var[0]] = decodeURI(temp_var[1]);
+          }
+      }
+      var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
+      for (var css_class in css_selector_classes) {
+          if (css_selector_classes.hasOwnProperty(css_class)) {
+              var element = document.getElementsByClassName(css_selector_classes[css_class]);
+              for (var j = 0; j < element.length; ++j) {
+                  element[j].textContent = vars[css_selector_classes[css_class]];
+              }
+          }
+      }
+  }
+</script>
+</head>
+<body style="border:0; margin: 0;" onload="subst();">
+<table style="width: 100%">
+<tr valign="top">
+<td><img style="height: 75px; width: auto;" src="data:image/png;base64,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"></td>
+<td style="text-align:right">INFO ABOUT US<br />SOME OTHER INFO</td>
+</tr>
+</table>
+</body></html></textarea><br><br>
+HTML Footer:<br><textarea name="htmlfooter" rows="10" cols="80"><!DOCTYPE html><html>
+<head>
+<style>
+body {
+	font-family: Helvetica;
+	font-size: 14px;
+}
+</style>
+<script>
+  function subst() {
+      var vars = {};
+      var query_strings_from_url = document.location.search.substring(1).split('&');
+      for (var query_string in query_strings_from_url) {
+          if (query_strings_from_url.hasOwnProperty(query_string)) {
+              var temp_var = query_strings_from_url[query_string].split('=', 2);
+              vars[temp_var[0]] = decodeURI(temp_var[1]);
+          }
+      }
+      var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
+      for (var css_class in css_selector_classes) {
+          if (css_selector_classes.hasOwnProperty(css_class)) {
+              var element = document.getElementsByClassName(css_selector_classes[css_class]);
+              for (var j = 0; j < element.length; ++j) {
+                  element[j].textContent = vars[css_selector_classes[css_class]];
+              }
+          }
+      }
+  }
+</script>
+</head>
+<body style="border:0; margin: 0;" onload="subst()">
+<table style="width: 100%">
+<tr>
+<td>Printed <span class="date"></span></td>
+<td style="text-align:right">Page <span class="page"></span> of <span class="topage"></span></td>
+</tr>
+</table>
+</body></html></textarea><br><br>
+HTML:<br><textarea name="htmlcode" rows="100" cols="80"><!DOCTYPE html>
+<html lang="en"
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+body {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 18px;
+}
+section, tr {
+	page-break-after:  auto;
+	page-break-inside: avoid !important;
+	page-break-before: auto;
+}
+</style>
+</head>
+<body>
+
+<section>
+<h1>Example Document</h1>
+<p>This is an example document that shows how to have a footer that repeats at the bottom of every page, but also isn't covered up by paragraph text. This is an example document that shows how to have a footer that repeats at the bottom of every page, but also isn't covered up by paragraph text.</p>
+</section>
+
+<section>
+<h3>Example Section 1</h3>
+<p><a href="https://www.w3schools.com/html/pulpitrock.jpg"><img src="https://www.w3schools.com/html/pulpitrock.jpg" alt="Mountain View" width="500" height="377"><br />Link to a photo.</a></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 2</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 3</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 4</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 5</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h1>Example Document</h1>
+<p>This is an example document that shows how to have a footer that repeats at the bottom of every page, but also isn't covered up by paragraph text.</p>
+</section>
+
+<section>
+<h3>Example Section 6</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 7</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 8</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 9</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 10</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h1>Example Document</h1>
+<p>This is an example document that shows how to have a footer that repeats at the bottom of every page, but also isn't covered up by paragraph text.</p>
+</section>
+
+<section>
+<h3>Example Section 11</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 12</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 13</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 14</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 15</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h1>Example Document</h1>
+<p>This is an example document that shows how to have a footer that repeats at the bottom of every page, but also isn't covered up by paragraph text.</p>
+</section>
+
+<section>
+<h3>Example Section 16</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 17</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 18</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum.</p>
+
+<p><table>
+  <tr>
+<th>Company</th>
+<th>Contact</th>
+<th>Country</th>
+  </tr>
+  <tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+<td>Germany</td>
+  </tr>
+  <tr>
+<td>Centro comercial Moctezuma</td>
+<td>Francisco Chang</td>
+<td>Mexico</td>
+  </tr>
+  <tr>
+<td>Ernst Handel</td>
+<td>Roland Mendel</td>
+<td>Austria</td>
+  </tr>
+  <tr>
+<td>Island Trading</td>
+<td>Helen Bennett</td>
+<td>UK</td>
+  </tr>
+  <tr>
+<td>Laughing Bacchus Winecellars</td>
+<td>Yoshi Tannamuri</td>
+<td>Canada</td>
+  </tr>
+  <tr>
+<td>Magazzini Alimentari Riuniti</td>
+<td>Giovanni Rovelli</td>
+<td>Italy</td>
+  </tr>
+</table></p>
+
+<p>Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 19</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+<section>
+<h3>Example Section 20</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vestibulum metus sit amet urna lobortis sollicitudin. Nulla mattis purus porta lorem tempor, a cursus tellus facilisis. Aliquam pretium nibh vitae elit placerat vestibulum. Duis felis ipsum, consectetur id pellentesque in, porta sit amet sapien. Ut tristique enim sem, laoreet bibendum nisl fermentum vitae. Ut aliquet sem ac lorem malesuada sodales. Fusce iaculis ipsum ex, in mollis dolor dapibus sit amet. In convallis felis in orci fermentum gravida a vel orci. Sed tincidunt porta nibh sit amet varius. Donec et odio eget odio tempus auctor ac eget ex.</p>
+</section>
+
+</body>
+</html>
+</textarea><br><br>
+
+<input type="submit" value="Convert HTML to PDF">
+</form> 
+
+</body>
+</html>

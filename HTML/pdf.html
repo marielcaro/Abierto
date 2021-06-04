@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Convert HTML to Image</title>
+</head>
+
+<body>
+<div id="heading">
+<table style="height: 26px;" width="750">
+<tbody>
+<tr>
+<td style="width: 300px;"><img src="Membrete.jpg" width="180" height="100"/> </td>
+<td style="width: 450px;text-align: right;font-family: Calibri;font-size:12.0pt;"><em>"2020 - A&ntilde;o del General Manuel Belgrano"</em></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script>
+var doc=new jsPDF();
+var h1=document.querySelector('#heading');
+doc.fromHTML(h1,20,20);
+doc.save("output.pdf");
+</script>
+</body>
+</html>

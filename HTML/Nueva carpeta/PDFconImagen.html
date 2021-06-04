@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convert HTML to Image</title>
+<style type="text/css">
+
+body {
+margin: 0mm 9mm 6mm;
+}
+
+</style>
+<script type="text/javascript" src="jquery-3.3.1.js"></script>
+<script type="text/javascript" src="html2canvas.min.js"></script>
+<script type="text/javascript" src="html2canvas.js"></script>
+<!-- <script type="text/javascript"src="canvas2image.js"></script>
+<script type="text/javascript" src="qrcode.js"></script> -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script type="text/javascript" src="jspdf.min.js"></script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+ <div id="testDiv">
+     <h3 style="color:green;">PDF CON IMAGEN</h3>
+<img src="MembreteL.png">
+    <p>a pararaph</p>
+</div>
+<div id="editor"></div>
+<button id="pdfview">Download PDF</button>
+	
+<script>
+
+                var img = canvas.toDataURL('image/png');
+                var doc = new jsPDF();
+                doc.addImage(img, 'JPEG', 20, 20);
+                doc.save('test.pdf');
+           
+</script>		
+
+<!-- <script type="text/javascript">
+$(window).on('load', function() {
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+        return true;
+    }
+};
+$('#pdfview').click(function () {
+    doc.fromHTML($('#pdfdiv').html(), 0, 0, {
+        'width': 700,
+            'elementHandlers': specialElementHandlers
+    });
+    doc.save('file.pdf');
+});
+});
+</script> -->
+
+</body>
+</html>
